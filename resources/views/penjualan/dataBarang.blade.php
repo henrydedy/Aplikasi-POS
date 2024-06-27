@@ -14,7 +14,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="overflow-y: scroll; max-height: 400px;">
-                            <table class="table table-hover" id="table">
+                            <table class="table table-hover" id="table" data-page-length="500">
+
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -34,7 +35,8 @@
                                             <form action="/{{ auth()->user()->level }}/penjualan/store" method="POST">
                                                 @csrf
                                                 <td>{{ $loop->iteration }}<input class="form-control" type="text"
-                                                        value="{{ $nomor }}" name="kode_transaksi" hidden></td>
+                                                        value="{{ $nomor }}" name="kode_transaksi" hidden>
+                                                </td>
                                                 <td style="width: 12%">{{ $item->kode }}<input class="form-control"
                                                         type="text" value="{{ $item->id }}" name="barang_id"
                                                         hidden></td>
