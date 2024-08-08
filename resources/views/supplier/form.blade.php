@@ -12,8 +12,8 @@
                 <form action="/{{ auth()->user()->level }}/supplier/store" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="kode_supplier">Kode Supplier</label>
-                        <input type="text" class="form-control" name="kode_supplier">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" class="form-control" name="alamat">
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama</label>

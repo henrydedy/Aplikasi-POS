@@ -33,8 +33,12 @@ class TransaksiSementaraController extends Controller
             $nomor = $tahun_bulan . $urut;
         }
 
-        return view('penjualan.index', compact('barang', 'transaksi_sementara', 'nomor'));
+        // Hitung total beli dari semua transaksi sementara
+        $total_beli = $transaksi_sementara->sum('total_beli');
+
+        return view('penjualan.index', compact('barang', 'transaksi_sementara', 'nomor', 'total_beli'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +57,9 @@ class TransaksiSementaraController extends Controller
 
         $data = $request->all();
 
-        $sub_total = ($data['harga'] - ($data['diskon'] * $data['harga'] / 100)) * $data['jumlah'];
+        $sub_total = ($data['harga'] * $data['jumlah']);
+
+        $sub_totalbeli = $data['harga_beli'] * $data['jumlah'];
 
         $barangAda = TransaksiSementara::where('barang_id', $request->barang_id)->first();
 
@@ -64,9 +70,10 @@ class TransaksiSementaraController extends Controller
             $transaksi_sementara->kode_transaksi = $request->kode_transaksi;
             $transaksi_sementara->barang_id = $request->barang_id;
             $transaksi_sementara->harga = $request->harga;
+            $transaksi_sementara->harga_beli = $request->harga_beli;
             $transaksi_sementara->jumlah = $request->jumlah;
-            $transaksi_sementara->diskon = $request->diskon;
             $transaksi_sementara->total = $sub_total;
+            $transaksi_sementara->total_beli = $sub_totalbeli;
             $transaksi_sementara->save();
         }
 
@@ -100,11 +107,13 @@ class TransaksiSementaraController extends Controller
         $barang = Barang::find($barang_id);
 
         if ($barang->stok >= $data['jumlah']) {
-            $sub_total = ($data['harga'] - ($data['diskon'] * $data['harga'] / 100)) * $data['jumlah'];
+            $sub_total = ($data['harga'] * $data['jumlah']);
+            $sub_totalbeli =  $data['harga_beli'] * $data['jumlah'];
 
             $transaksi_sementara = TransaksiSementara::find($id);
             $transaksi_sementara->jumlah = $request->jumlah;
             $transaksi_sementara->total = $sub_total;
+            $transaksi_sementara->total_beli = $sub_totalbeli;
             $transaksi_sementara->update();
 
             return redirect('/' . $user->level . '/penjualan');
@@ -151,6 +160,7 @@ class TransaksiSementaraController extends Controller
                     'bayar' => 'required|numeric',
                     'kembali' => 'required|numeric',
                     'kode_kasir' => 'required|string|max:255',
+                    'total_beli' => 'required|numeric',
                 ]);
 
 
@@ -161,6 +171,7 @@ class TransaksiSementaraController extends Controller
                 $transaksi->bayar = $request->bayar;
                 $transaksi->kembali = $request->kembali;
                 $transaksi->kode_kasir = $request->kode_kasir;
+                $transaksi->total_beli = $request->total_beli;
                 $transaksi->tanggal = $tanggalSekarang;
                 $transaksi->save();
 
@@ -175,9 +186,10 @@ class TransaksiSementaraController extends Controller
                         'kode_transaksi' => $data->kode_transaksi,
                         'barang' => $barang->nama,
                         'harga' => $data->harga,
+                        'harga_beli' => $data->harga_beli,
                         'jumlah' => $data->jumlah,
-                        'diskon' => $data->diskon,
                         'total' => $data->total,
+                        'total_beli' => $data->total_beli,
                     ]);
 
                     TransaksiSementara::truncate();

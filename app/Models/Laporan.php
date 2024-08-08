@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+class Laporan extends Model
+{
+    use HasFactory;
+}
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Traits\HasFormatRupiah;
 
@@ -15,10 +25,9 @@ class Transaksi extends Model
     protected $fillable = [
         'kode_transaksi',
         'total',
-        'bayar',
-        'kembali',
+        'keuntungan',
+        'total_pembelian',
         'kode_kasir',
-        'total_beli',
     ];
 
     public function user()

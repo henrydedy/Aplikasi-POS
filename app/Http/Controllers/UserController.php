@@ -37,7 +37,7 @@ class UserController extends Controller
                 'nama' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string',
-                'level' => 'required|in:admin,kasir',
+                'level' => 'required|in:admin,kasir,owner',
             ]);
 
             $user = new User;
@@ -48,9 +48,9 @@ class UserController extends Controller
             $user->level = $request->level;
             $user->save();
 
-            return redirect('/admin/user')->with('sukses', 'Data Berhasil di Simpan');
+            return redirect('/owner/user')->with('sukses', 'Data Berhasil di Simpan');
         } catch (\Exception $e) {
-            return redirect('/admin/user')->with('gagal', 'Data Tidak Berhasil di Simpan. Pesan Kesalahan: ' . $e->getMessage());
+            return redirect('/owner/user')->with('gagal', 'Data Tidak Berhasil di Simpan. Pesan Kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -76,9 +76,9 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect('/admin/user')->with('sukses', 'Data Berhasil di Edit');
+            return redirect('/owner/user')->with('sukses', 'Data Berhasil di Edit');
         } catch (\Exception $e) {
-            return redirect('/admin/user')->with('gagal', 'Data Tidak Berhasil di Edit. Pesan Kesalahan: ' . $e->getMessage());
+            return redirect('/owner/user')->with('gagal', 'Data Tidak Berhasil di Edit. Pesan Kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect('/admin/user')->with('sukses', 'Data Berhasil Di Hapus');
+        return redirect('/owner/user')->with('sukses', 'Data Berhasil Di Hapus');
     }
 
     public function profile()
@@ -110,9 +110,9 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect('/admin/user')->with('sukses', 'Data Berhasil di Edit');
+            return redirect('/owner/user')->with('sukses', 'Data Berhasil di Edit');
         } catch (\Exception $e) {
-            return redirect('/admin/user')->with('gagal', 'Data Tidak Berhasil di Edit. Pesan Kesalahan: ' . $e->getMessage());
+            return redirect('/owner/user')->with('gagal', 'Data Tidak Berhasil di Edit. Pesan Kesalahan: ' . $e->getMessage());
         }
     }
 }

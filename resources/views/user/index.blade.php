@@ -47,6 +47,10 @@
                                                     <td>
                                                         <div class="badge badge-info">Kasir</div>
                                                     </td>
+                                                @elseif($item->level == 'owner')
+                                                    <td>
+                                                        <div class="badge badge-warning">Owner</div>
+                                                    </td>
                                                 @endif
                                                 <td>
                                                     <form action="/{{ auth()->user()->level }}/user/{{ $item->id }}"

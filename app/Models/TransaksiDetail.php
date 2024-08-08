@@ -15,8 +15,9 @@ class TransaksiDetail extends Model
         'kode_transaksi',
         'barang',
         'harga',
+        'harga_beli',
         'jumlah',
-        'diskon',
         'total',
+        'total_beli',
     ];
 }

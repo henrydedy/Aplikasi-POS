@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('bayar');
             $table->float('kembali');
             $table->string('kode_kasir');
+            $table->float('total_beli');
             $table->datetime('tanggal');
             $table->timestamps();
         });

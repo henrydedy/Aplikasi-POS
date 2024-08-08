@@ -1,6 +1,5 @@
 <!-- Modal -->
 
-
 <div class="modal fade" id="data-barang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog custom-modal-xl">
         <div class="modal-content">
@@ -15,17 +14,16 @@
                     <div class="card-body">
                         <div style="overflow-y: scroll; max-height: 400px;">
                             <table class="table table-hover" id="table" data-page-length="500">
-
                                 <thead>
                                     <tr>
                                         <th>No.</th>
                                         <th>Barcode</th>
                                         <th>Nama</th>
                                         <th>Supplier</th>
+                                        <!-- <th>Harga_beli</th> -->
                                         <th>Harga</th>
-                                        <th>Jumlah</th>
+                                        <th></th>
                                         <th>Stok</th>
-                                        <th>Diskon</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,19 +38,18 @@
                                                 <td style="width: 12%">{{ $item->kode }}<input class="form-control"
                                                         type="text" value="{{ $item->id }}" name="barang_id"
                                                         hidden></td>
-                                                <td style="width: 20%">{{ $item->nama }}<input class="form-control"
+                                                <td style="width: 50%">{{ $item->nama }}<input class="form-control"
                                                         type="text" value="{{ $item->id }}" name="barang_id"
                                                         hidden></td>
-                                                <td>{{ $item->supplier->kode_supplier }}<input class="form-control"
-                                                        type="text" value="{{ $item->id }}" name="barang_id"
+                                                <td>{{ $item->supplier->nama }}<input class="form-control"
+                                                        type="text" value="{{ $item->nama }}" name="supplier_id"
                                                         hidden></td>
                                                 <td>{{ $item->formatRupiah('harga_jual') }}<input class="form-control"
                                                         type="text" value="{{ $item->harga_jual }}" name="harga"
                                                         hidden></td>
                                                 <td style="width: 8%"><input class="form-control jumlah" type="number"
                                                         name="jumlah" id="jumlah" value="1" min="1"
-                                                        max="{{ $item->stok }}">
-                                                </td>
+                                                        max="{{ $item->stok }}" style="display: none;"></td>
                                                 @if ($item->stok > 0)
                                                     <td>{{ $item->stok }}<input type="text"
                                                             value="{{ $item->stok }}" hidden><input
@@ -62,8 +59,6 @@
                                                 @if ($item->stok <= 0)
                                                     <td><span class="text-danger">Stok Habis</span></td>
                                                 @endif
-                                                <td>{{ $item->diskon }}%<input class="form-control" type="text"
-                                                        value="{{ $item->diskon }}" name="diskon" hidden></td>
                                                 @if ($item->stok <= 0)
                                                     <td><button type="submit" id="tambah"
                                                             class="btn btn-sm btn-success" disabled><i
@@ -74,7 +69,12 @@
                                                             class="btn btn-sm btn-success"><i
                                                                 class="fa fa-plus"></i></button></td>
                                                 @endif
+                                                <td>
+                                                    <input class="form-control" type="text"
+                                                        value="{{ $item->harga_beli }}" name="harga_beli" hidden>
+                                                </td>
                                             </form>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -86,7 +86,6 @@
         </div>
     </div>
 </div>
-
 
 <style>
     .custom-modal-xl {

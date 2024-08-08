@@ -99,6 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="rounded" style="overflow-y: scroll; height: 300px;">
                                 <table class="table table-bordered" id="table-transaksi">
@@ -106,10 +107,13 @@
                                         <tr>
                                             <th>Barcode</th>
                                             <th>Nama</th>
+                                            <th class="d-none">Harga_beli</th>
+
                                             <th>Harga</th>
                                             <th>Jumlah</th>
-                                            <th>Diskon</th>
+                                            <th>Satuan</th>
                                             <th>Total</th>
+                                            <th class="d-none">Total_beli</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -123,6 +127,12 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
+                                                    <td class="harga_beli d-none" value="{{ $item->harga_beli }}">
+                                                        {{ $item->formatRupiah('harga_beli') }}
+                                                        <input type="text" value="{{ $item->harga_beli }}"
+                                                            name="harga_beli" hidden>
+                                                    </td>
+
                                                     <td class="harga" value="{{ $item->harga }}">
                                                         {{ $item->formatRupiah('harga') }}
                                                         <input type="text" value="{{ $item->harga }}" name="harga"
@@ -137,12 +147,11 @@
                                                                     this.form.submit()                                                                }
                                                             }">
                                                     </td>
-                                                    <td class="diskon" value="{{ $item->diskon }}">{{ $item->diskon }}%
-                                                        <input type="text" value="{{ $item->diskon }}" name="diskon"
-                                                            hidden>
-                                                    </td>
+                                                    <td>{{ $item->barang->satuan->nama }}</td>
                                                     <td class="total" value="{{ $item->total }}">
                                                         {{ $item->formatRupiah('total') }}</td>
+                                                    <td class="total_beli d-none" value="{{ $item->total_beli }}">
+                                                        {{ $item->formatRupiah('total_beli') }}</td>
                                                     <td>
 
 
@@ -221,6 +230,7 @@
             document.getElementById('kembalian').value = kembali;
             total.value = kembali;
 
+
             // Optionally, you can show a warning message if the payment is insufficient
             if (kembali < 0) {
                 document.getElementById('warning-message').style.display = 'block';
@@ -294,6 +304,7 @@
 
         }
     </script>
+
     <script>
         function setDibayarkan(setbayar) {
             bayar = parseFloat(document.getElementById('bayar').value) || 0;

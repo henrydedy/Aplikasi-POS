@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('kode_transaksi');
             $table->integer('barang_id');
             $table->float('harga');
+            $table->float('harga_beli');
             $table->integer('jumlah');
-            $table->float('diskon');
             $table->float('total');
+            $table->float('total_beli');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class cekLevel
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$levels): Response
+    public function handle($request, Closure $next, ...$levels): Response
     {
         // Periksa peran pengguna
         $user = Auth::user();

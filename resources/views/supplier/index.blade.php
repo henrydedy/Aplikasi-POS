@@ -25,7 +25,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kode</th>
+                                            <th>Alamat</th>
                                             <th style="width: 20%">Nama</th>
                                             <th>NoHP</th>
                                             <th>Keterangan</th>
@@ -36,7 +36,7 @@
                                         @foreach ($supplier as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->kode_supplier }}</td>
+                                                <td>{{ $item->alamat }}</td>
                                                 <td>{{ $item->nama }}</td>
                                                 <td>{{ $item->nohp }}</td>
                                                 <td>{{ $item->keterangan }}</td>
@@ -50,7 +50,7 @@
                                                         @csrf
                                                         @method('delete')
                                                         <button type="button" class="btn btn-sm btn-outline-danger"
-                                                            id="{{ $item->kode_supplier }}"id="{{ $item->nama }}"
+                                                            id="{{ $item->alamat }}"id="{{ $item->nama }}"
                                                             id="{{ $item->nohp }}" id="{{ $item->keterangan }}"
                                                             data-id="{{ $item->id }}" onclick="confirmDelete(this)"><i
                                                                 class="fa fa-trash"></i> Delete</button>

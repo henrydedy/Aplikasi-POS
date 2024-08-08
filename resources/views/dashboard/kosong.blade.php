@@ -22,13 +22,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($stok_kosong as $item)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->kode}}</td>
-                                        <td>{{$item->nama}}</td>
-                                        <td><a href="/{{auth()->user()->level}}/barang/{{$item->id}}/edit" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> Detail</a></td>
-                                    </tr>
+                                    @foreach ($stok_kosong as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->kode }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>
+                                                @if (auth()->user()->level == 'admin')
+                                                    <a href="/{{ auth()->user()->level }}/barang/{{ $item->id }}/edit"
+                                                        class="btn btn-sm btn-info">
+                                                        <i class="fa fa-eye"></i> Detail
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

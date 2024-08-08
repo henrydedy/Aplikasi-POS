@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('satuan_id');
             $table->string('supplier_id');
             $table->integer('stok');
-            $table->float('diskon');
             $table->timestamps();
         });
     }

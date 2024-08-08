@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="kode">Kode</label>
+                                    <label for="kode">Barcode</label>
                                     <input type="text" class="form-control" name="kode" value="{{ $barang->kode }}"
                                         disabled>
                                 </div>
@@ -92,16 +92,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="diskon">Diskon</label>
-                                    <div class="input-group-prepend">
-                                        <input type="text" class="form-control jumlah" id="diskon" name="diskon"
-                                            value="{{ $barang->diskon }}">
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <a href="{{ url('/' . auth()->user()->level . '/barang') }}"
                             class="btn btn-sm btn-outline-warning"><i class="fas fa-caret-left"></i> Kembali</a>
@@ -127,7 +117,6 @@
         // Mengambil elemen input
         var harga_beli = document.getElementById('harga-beli');
         var harga_jual = document.getElementById('harga-jual');
-        var diskon = document.getElementById('diskon');
 
         // Menambahkan event listener untuk setiap kali ada input
         harga_beli.addEventListener('input', function() {
@@ -137,12 +126,6 @@
 
         // Menambahkan event listener untuk setiap kali ada input
         harga_jual.addEventListener('input', function() {
-            // Mengganti nilai input hanya dengan karakter angka
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-
-        // Menambahkan event listener untuk setiap kali ada input
-        diskon.addEventListener('input', function() {
             // Mengganti nilai input hanya dengan karakter angka
             this.value = this.value.replace(/[^0-9]/g, '');
         });

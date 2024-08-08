@@ -31,14 +31,14 @@ class SupplierController extends Controller
     {
         try {
             $request->validate([
-                'kode_supplier' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
                 'nama' => 'required|string|max:255',
                 'nohp' => 'required|string|max:255',
                 'keterangan' => 'required|string|max:255',
             ]);
 
             $supplier = new Supplier;
-            $supplier->kode_supplier = $request->kode_supplier;
+            $supplier->alamat = $request->alamat;
             $supplier->nama = $request->nama;
             $supplier->nohp = $request->nohp;
             $supplier->keterangan = $request->keterangan;
@@ -75,14 +75,14 @@ class SupplierController extends Controller
     {
         try {
             $request->validate([
-                'kode_supplier' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
                 'nama' => 'required|string|max:255',
                 'nohp' => 'required|string|max:255',
                 'keterangan' => 'required|string|max:255',
             ]);
 
             $supplier = Supplier::find($id);
-            $supplier->kode_supplier = $request->kode_supplier;
+            $supplier->alamat = $request->alamat;
             $supplier->nama = $request->nama;
             $supplier->nohp = $request->nohp;
             $supplier->keterangan = $request->keterangan;

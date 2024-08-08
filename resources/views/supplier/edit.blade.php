@@ -18,9 +18,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="kode_supplier">Kode</label>
-                            <input type="text" class="form-control" value="{{ $supplier->kode_supplier }}"
-                                name="kode_supplier">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" class="form-control" value="{{ $supplier->alamat }}" name="alamat">
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama Supplier</label>

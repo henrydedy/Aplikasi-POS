@@ -81,9 +81,9 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::find($id_transaksi->id);
         $transaksi_detail = TransaksiDetail::where('kode_transaksi', $kode_transaksi)->get();
 
-        $pdf = Pdf::loadView('laporan.print', compact('transaksi', 'transaksi_detail'));
-        return $pdf->stream();
+        return view('laporan.print', compact('transaksi', 'transaksi_detail'));
     }
+
 
     public function cari(Request $request)
     {
@@ -101,6 +101,13 @@ class TransaksiController extends Controller
         $tanggalSampai = Carbon::parse($sampai)->addDays(1)->format('Y-m-d');
         $transaksi = Transaksi::whereBetween('tanggal', [$dari, $tanggalSampai])->get();
 
+        // Menyiapkan data untuk setiap transaksi
+        $transaksiDetails = [];
+        foreach ($transaksi as $trans) {
+            $details = TransaksiDetail::where('kode_transaksi', $trans->kode_transaksi)->get();
+            $transaksiDetails[$trans->kode_transaksi] = $details;
+        }
+
         $totalAll = 0;
         foreach ($transaksi as $data) {
             $totalAll += $data->total;
@@ -108,8 +115,7 @@ class TransaksiController extends Controller
 
         $total = number_format($totalAll, 0, ',', '.');
 
-        $pdf = Pdf::loadView('laporan.printTanggal', compact('transaksi', 'dari', 'sampai', 'total'));
+        $pdf = Pdf::loadView('laporan.printTanggal', compact('transaksi', 'transaksiDetails', 'dari', 'sampai', 'total'));
         return $pdf->stream();
     }
 }
-

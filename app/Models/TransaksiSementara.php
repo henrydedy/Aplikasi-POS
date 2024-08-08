@@ -16,9 +16,10 @@ class TransaksiSementara extends Model
         'kode_transaksi',
         'barang_id',
         'harga',
+        'harga_beli',
         'jumlah',
-        'diskon',
         'total',
+        'total_beli',
     ];
 
     public function barang()

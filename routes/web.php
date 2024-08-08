@@ -130,13 +130,6 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function () {
     Route::put('/admin/barang/{id}', [BarangController::class, 'update']);
     Route::get('/admin/barang/{id}', [BarangController::class, 'destroy']);
 
-    Route::get('/admin/tambahbarang', [TambahBarangController::class, 'index']);
-    Route::post('/admin/tambahbarang/store', [TambahBarangController::class, 'store']);
-    Route::get('/admin/tambahbarang/{id}/edit', [TambahBarangController::class, 'edit']);
-    Route::get('/admin/tambahbarang/{id}/show', [TambahBarangController::class, 'show']);
-    Route::put('/admin/tambahbarang/{id}', [TambahBarangController::class, 'update']);
-    Route::get('/admin/tambahbarang/{id}', [TambahBarangController::class, 'destroy']);
-
     Route::get('/admin/laporan', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/admin/laporan/cari', [TransaksiController::class, 'cari']);
 
@@ -182,4 +175,45 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,kasir']], function () {
     Route::put('/kasir/transaksi-sementara/{id}/{barang_id}/edit', [TransaksiSementaraController::class, 'update']);
     Route::get('/kasir/profile/{id}', [ProfileController::class, 'edit']);
     Route::put('/kasir/profile/{id}', [ProfileController::class, 'update']);
+
+    Route::get('/kasir/laporan', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/kasir/laporan/cari', [TransaksiController::class, 'cari']);
+
+
+    Route::get('/kasir/laporan/{dari}/{sampai}/print', [TransaksiController::class, 'printTanggal']);
+    Route::get('/kasir/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
+    Route::get('/kasir/laporan/{kodeTransaksi}', [TransaksiController::class, 'show']);
+});
+
+
+
+
+Route::group(['middleware' => ['auth', 'ceklevel:admin,owner']], function () {
+    Route::get('/owner/dashboard', [DashboardController::class, 'index']);
+    Route::get('/owner/dashboard/kalkulator', [DashboardController::class, 'kalkulator'])->name('kalkulator');
+
+    Route::get('/owner/user', [UserController::class, 'index']);
+    Route::post('/owner/user/store', [UserController::class, 'store']);
+    Route::get('/owner/user/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/owner/user/{id}', [UserController::class, 'update']);
+    Route::get('/owner/user/{id}', [UserController::class, 'destroy']);
+    Route::get('/owner/profile/{id}', [ProfileController::class, 'edit']);
+    Route::put('/owner/profile/{id}', [ProfileController::class, 'update']);
+
+
+    Route::get('/owner/laporan', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/owner/laporan/cari', [TransaksiController::class, 'cari']);
+
+
+    Route::get('/owner/laporan/{dari}/{sampai}/print', [TransaksiController::class, 'printTanggal']);
+    Route::get('/owner/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
+    Route::get('/owner/laporan/{kodeTransaksi}', [TransaksiController::class, 'show']);
+    Route::delete('/owner/laporan/{kodeTransaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+
+    Route::get('/owner/penjualan', [TransaksiSementaraController::class, 'index']);
+    Route::post('/owner/penjualan/store', [TransaksiSementaraController::class, 'store']);
+    Route::post('/owner/penjualan/bayar/{kodeTransaksi}', [TransaksiSementaraController::class, 'bayar']);
+    Route::get('/owner/penjualan/{id}', [TransaksiSementaraController::class, 'destroy']);
+    Route::get('/owner/penjualan/hapus/semua', [TransaksiSementaraController::class, 'hapusSemua']);
+    Route::get('/owner/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
 });

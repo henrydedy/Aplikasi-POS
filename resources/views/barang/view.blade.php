@@ -57,16 +57,16 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="harga_beli">Harga Beli</label>
-                                            <input type="number" class="form-control" name="harga_beli"
-                                                value="{{ $barang->harga_beli }}" readonly>
+                                            <input type="text" class="form-control" name="harga_beli"
+                                                value="{{ 'Rp ' . number_format($barang->harga_beli, 0, ',', '.') }}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="harga_jual">Harga Jual</label>
-                                        <input type="number" class="form-control" name="harga_jual"
-                                            value="{{ $barang->harga_jual }}" readonly>
+                                        <input type="text" class="form-control" name="harga_jual"
+                                            value="{{ 'Rp ' . number_format($barang->harga_jual, 0, ',', '.') }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -74,16 +74,6 @@
                                         <label for="stok">Stok</label>
                                         <input type="number" class="form-control" name="stok"
                                             value="{{ $barang->stok }}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="diskon">Diskon</label>
-                                        <div class="input-group-prepend">
-                                            <input type="number" class="form-control" name="diskon"
-                                                value="{{ $barang->diskon }}" readonly>
-                                            <span class="input-group-text">%</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

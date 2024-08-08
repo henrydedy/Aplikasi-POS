@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- formbayar.blade.php -->
 <div class="modal fade" id="form-bayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -21,6 +21,13 @@
                             </select>
                             <input type="text" id="kode-transaksi" class="form-control" value="{{ $nomor }}"
                                 name="kode_transaksi" readonly hidden>
+
+                            <!-- Tambahkan id untuk total_beli -->
+                            <input type="text" id="total-beli" class="form-control" value="0" name="total_beli"
+                                hidden>
+                            <input type="text" id="total-beli" class="form-control" value="{{ $total_beli }}"
+                                name="total_beli" hidden>
+
 
                             <div class="form-group">
                                 <label for="Total Belanja">Subtotal</label>
@@ -69,8 +76,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn m-1 btn-outline-primary float-right" data-toggle="modal"
-                                onclick="simpan()">Bayar</button>
+                            <button type="button" class="btn m-1 btn-outline-primary float-right"
+                                data-toggle="modal" onclick="simpan()">Bayar</button>
                         </form>
                     </div>
                 </div>
@@ -78,4 +85,23 @@
         </div>
     </div>
 </div>
-</div>
+
+<!-- Tambahkan script ini di bawah atau di bagian mana pun sesuai kebutuhan -->
+<script>
+    // Fungsi untuk mengupdate nilai total beli
+    function updateTotalBeli() {
+        var totalBeli = document.getElementById('total-beli').value;
+        var labelTotalBayar = document.getElementById('label-total-bayar');
+
+        // Ubah format nilai total beli ke dalam format Rupiah
+        labelTotalBayar.textContent = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        }).format(totalBeli);
+    }
+
+    // Panggil fungsi ketika modal dibuka
+    $('#form-bayar').on('shown.bs.modal', function() {
+        updateTotalBeli();
+    });
+</script>

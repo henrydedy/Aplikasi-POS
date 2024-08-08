@@ -59,8 +59,10 @@ class AuthController extends Controller
             $user = Auth::user();
             if ($user->level == 'admin') {
                 return redirect('/admin/dashboard');
-            } else {
+            } else if ($user->level == 'kasir') {
                 return redirect('/kasir/dashboard');
+            } else if ($user->level == 'owner') {
+                return redirect('/owner/dashboard');
             }
         } else {
             return back()->with('gagal', 'Email atau Password salah!');

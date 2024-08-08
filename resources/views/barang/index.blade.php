@@ -25,13 +25,12 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kode</th>
+                                            <th>Barcode</th>
                                             <th style="width: 20%">Nama</th>
                                             <th>Harga Beli</th>
                                             <th>Harga Jual</th>
                                             <th>Satuan</th>
                                             <th>Stok</th>
-                                            {{-- <th>Diskon</th> --}}
                                             <th>Supplier</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -52,8 +51,7 @@
                                                 @if ($item->stok > 0)
                                                     <td>{{ $item->stok }}</td>
                                                 @endif
-                                                <td>{{ $item->supplier->kode_supplier }}</td>
-                                                {{-- <td>{{ $item->diskon }}%</td> --}}
+                                                <td>{{ $item->supplier->nama }}</td>
                                                 <td>
                                                     <form action="/{{ auth()->user()->level }}/barang/{{ $item->id }}"
                                                         id="delete-form">
@@ -103,7 +101,6 @@
         // Mengambil elemen input
         var harga_beli = document.getElementById('harga-beli');
         var harga_jual = document.getElementById('harga-jual');
-        var diskon = document.getElementById('diskon');
         var satuan_id = document.getElementById('satuan');
         var supplier_id = document.getElementById('supplier');
 
@@ -119,11 +116,6 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-        // Menambahkan event listener untuk setiap kali ada input
-        diskon.addEventListener('input', function() {
-            // Mengganti nilai input hanya dengan karakter angka
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
         // Menambahkan event listener untuk setiap kali ada input
         satuan_id.addEventListener('input', function() {
             // Mengganti nilai input hanya dengan karakter angka

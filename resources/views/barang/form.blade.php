@@ -13,11 +13,10 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="
-                            form-group">
+                            <div class="form-group">
                                 <label for="kode">Kode</label>
                                 <input type="text" class="form-control" value="{{ $kode }}" name="kode"
-                                    id="kode">
+                                    id="kode" autofocus>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -29,13 +28,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="harga_beli">Harga Beli</label>
-                                <input type="text" class="form-control jumlah" id="harga-beli" name="harga_beli">
+                                <input type="text" class="form-control jumlah" id="harga-beli" name="harga_beli"
+                                    onkeyup="formatRupiah(this)">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="harga_jual">Harga Jual</label>
-                                <input type="text" class="form-control jumlah" id="harga-jual" name="harga_jual">
+                                <input type="text" class="form-control jumlah" id="harga-jual" name="harga_jual"
+                                    onkeyup="formatRupiah(this)">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -77,17 +78,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="diskon">Diskon</label>
-                                <div class="input-group-prepend">
-                                    <input type="text" class="form-control jumlah" name="diskon" id="diskon"
-                                        value="0" required>
-                                    <span class="input-group-text">%</span>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                     <!-- Tambahkan button submit -->
                     <button type="submit" class="btn btn-outline-primary float-right">Simpan</button>
@@ -99,6 +89,22 @@
 
 @push('script')
     <script>
+        function formatRupiah(input) {
+            let value = input.value.replace(/[^,\d]/g, '').toString();
+            let split = value.split(',');
+            let sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            input.value = rupiah;
+        }
+
         $(document).ready(function() {
             $('#kategori, #satuan, #supplier').change(function() {
                 // Fungsi ini akan dijalankan setiap kali pilihan dalam dropdown berubah
@@ -116,6 +122,13 @@
                     var inputs = $(this).closest('form').find(':input:visible');
                     inputs.eq(inputs.index(this) + 1).focus();
                 }
+            });
+
+            $('#form-tambah').submit(function() {
+                $('#harga-beli, #harga-jual').each(function() {
+                    let value = $(this).val().replace(/\./g, '');
+                    $(this).val(value);
+                });
             });
         });
     </script>

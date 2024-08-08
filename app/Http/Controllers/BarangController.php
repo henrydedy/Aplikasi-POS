@@ -53,7 +53,6 @@ class BarangController extends Controller
             'satuan_id' => 'required|exists:satuans,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'stok' => 'required|integer|min:0',
-            'diskon' => 'nullable|numeric|min:0|max:100',
         ]);
 
         try {
@@ -66,7 +65,6 @@ class BarangController extends Controller
             $barang->satuan_id = $request->satuan_id;
             $barang->supplier_id = $request->supplier_id;
             $barang->stok = $request->stok;
-            $barang->diskon = $request->input('diskon', 0); // Mengambil nilai 'diskon' dari input, atau default ke 0 jika tidak ada
             $barang->save();
 
             return redirect('/admin/barang')->with('sukses', 'Data Berhasil di Simpan');
@@ -100,7 +98,7 @@ class BarangController extends Controller
 
         return view('barang.edit', compact('barang', 'kategori', 'satuan', 'supplier'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -115,7 +113,6 @@ class BarangController extends Controller
             'satuan_id' => 'required|exists:satuans,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'stok' => 'required|integer|min:0',
-            'diskon' => 'nullable|numeric|min:0|max:100',
         ]);
 
         try {

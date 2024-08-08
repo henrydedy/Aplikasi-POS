@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Transaksi {{$transaksi->kode_transaksi}}</title>
+    <title>Transaksi {{ $transaksi->kode_transaksi }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,9 +44,11 @@
             margin-top: 20px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
-            padding: 12px; /* Adjust padding for better spacing */
+            padding: 12px;
+            /* Adjust padding for better spacing */
             text-align: left;
         }
 
@@ -81,49 +83,56 @@
 <body>
     <div class="transaksi-container">
         <div class="transaksi-header">
-            <h2>Transaksi</h2>
+            <h2>Toko Bulan</h2>
         </div>
         <div class="transaksi-details">
-            <label>Kode Transaksi:</label> <span>{{$transaksi->kode_transaksi}}</span><br>
-            <label>Kode Kasir:</label> <span>{{$transaksi->kode_kasir}}</span><br>
-            <label>Waktu:</label> <span>{{$transaksi->tanggal}}</span><br>
-            <table style="width: 100%; margin-bottom: 30px">
+            <p>
+                <label>Kode Transaksi:</label> <span>{{ $transaksi->kode_transaksi }}</span><br>
+                <label>Kode Kasir:</label> <span>{{ $transaksi->kode_kasir }}</span><br>
+                <label>Waktu:</label> <span>{{ $transaksi->tanggal }}</span><br>
+            </p>
+            <table style="width: 100%; margin-bottom: 30px; border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Produk</th>
-                        <th>harga</th>
+                        <th>Barang</th>
+                        <th>Harga</th>
                         <th>Jumlah</th>
-                        <th>Diskon</th>
                         <th>Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($transaksi_detail as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->barang}}</td>
-                        <td>{{$item->formatRupiah('harga')}}</td>
-                        <td>{{$item->jumlah}}</td>
-                        <td>{{$item->diskon}}%</td>
-                        <td>{{$item->formatRupiah('total')}}</td>
-                    </tr>
+                    @foreach ($transaksi_detail as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->barang }}</td>
+                            <td>{{ $item->formatRupiah('harga') }}</td>
+                            <td>{{ $item->jumlah }}</td>
+                            <td>{{ $item->formatRupiah('total') }}</td>
+                        </tr>
                     @endforeach
                     <tr class="total-row">
-                        <td colspan="5">Total</td>
-                        <td>{{$transaksi->formatRupiah('total')}}</td>
+                        <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                        <td>{{ $transaksi->formatRupiah('total') }}</td>
                     </tr>
                     <tr class="total-row">
-                        <td colspan="5">Bayar</td>
-                        <td>{{$transaksi->formatRupiah('bayar')}}</td>
+                        <td colspan="4" style="text-align: right;"><strong>Bayar</strong></td>
+                        <td>{{ $transaksi->formatRupiah('bayar') }}</td>
                     </tr>
                     <tr class="total-row">
-                        <td colspan="5">Kembali</td>
-                        <td>{{$transaksi->formatRupiah('kembali')}}</td>
+                        <td colspan="4" style="text-align: right;"><strong>Kembali</strong></td>
+                        <td>{{ $transaksi->formatRupiah('kembali') }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            window.print();
+        }
+    </script>
 </body>
+
 </html>
